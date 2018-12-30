@@ -2,6 +2,8 @@ package com.example.user.vkmsg;
 
 import android.app.Application;
 
+import com.vk.sdk.VKSdk;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -12,9 +14,9 @@ public class MyApp extends Application {
 
     public void onCreate() {
         super.onCreate();
-
+        VKSdk.initialize(getApplicationContext());
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("https://api.vk.com")
+                .baseUrl("https://api.vk.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

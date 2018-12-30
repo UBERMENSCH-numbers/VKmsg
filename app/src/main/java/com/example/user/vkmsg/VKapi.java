@@ -11,8 +11,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface VKapi {
-    @GET("/method/users.get")
-    public Call<Container> getUser(@Query("user_ids") String userId,
-                                   @Query("access_token") String access_token,
-                                   @Query("v") String version);
+    @GET("method/users.get")
+    Call<Container> getUser (
+            @Query("user_ids") String user_ids,
+            @Query("access_token") String token,
+            @Query("fields") String field,
+            @Query("v") String version);
 }

@@ -60,7 +60,7 @@ import org.json.JSONObject;
     }, {
     src: http://cs323930.vk.me/v323930021/53f9/7fBJyr9OHMA.jpg,
     width: 604,
-    height: 404,
+    height: error,
     type: 'x'
     }, {
     src: http://cs323930.vk.me/v323930021/53fa/bskHpsuH6sM.jpg,

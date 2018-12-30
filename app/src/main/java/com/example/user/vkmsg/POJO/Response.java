@@ -4,6 +4,7 @@ package com.example.user.vkmsg.POJO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 public class Response {
 
     @SerializedName("id")
