@@ -1,5 +1,5 @@
 
-package com.example.user.vkmsg.POJO;
+package com.example.user.vkmsg.POJO.POJOUsers;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

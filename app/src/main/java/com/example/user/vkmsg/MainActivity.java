@@ -1,9 +1,9 @@
 package com.example.user.vkmsg;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.user.vkmsg.POJO.Container;
+import com.example.user.vkmsg.POJO.POJOUsers.Container;
 import com.squareup.picasso.Picasso;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
@@ -22,8 +22,11 @@ import com.vk.sdk.api.VKError;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Observable;
 
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private String[] data = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14"};
     private String token;
     private String id;
-    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,31 +46,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("CheckResult")
     private void initAppBar () {
-        MyApp.getVKapi().getUser(id , token , "photo_200","5.92").enqueue(new Callback<Container>() {
-            @Override
-            public void onResponse(@NonNull Call<Container> call, @NonNull Response<Container> response) {
-                if (response.isSuccessful()) {
-
-                    com.example.user.vkmsg.POJO.Response responsePojo = response.body().getResponse().get(0);
-                    ((TextView) findViewById(R.id.text_user_name)).setText(responsePojo.getFirstName() + " " + responsePojo.getLastName());
-                    Picasso.get()
-                            .load(responsePojo.getPhoto200())
-                            .placeholder(R.drawable.holder)
-                            .error(R.drawable.error)
-                            .into((ImageView) findViewById(R.id.image_user));
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "response.isSuccessful() == false " + response.code(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Container> call, @NonNull Throwable t) {
-                Toast.makeText(getApplicationContext(), "failed request", Toast.LENGTH_SHORT).show();
-            }
-        });
+        List<String> ids = new ArrayList<>();
+        ids.add(id);
+        getUsers(ids)
+                .map((container) -> container.getResponse().get(0))
+                .subscribe(response -> {
+                    ((TextView) findViewById(R.id.text_user_name)).setText(response.getFirstName() +
+                            " " + response.getLastName());
+                    loadPic(response.getPhoto200(), findViewById(R.id.image_user));
+                });
     }
 
     private void initRecyclerView () {
@@ -101,4 +89,25 @@ public class MainActivity extends AppCompatActivity {
         }
         initAppBar();
     }
+
+    io.reactivex.Observable<Container> getUsers (List<String> ids) {
+        StringBuilder stringBuffer = new StringBuilder();
+        for (String str : ids){
+            stringBuffer.append(str);
+            if (ids.indexOf(str) != ids.size()) stringBuffer.append(",");
+        }
+
+        return MyApp.getVKapi().getUser(stringBuffer.toString(),  token, "photo_200", "5.92")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    void loadPic (String url, ImageView place) {
+        Picasso.get()
+                .load(url)
+                .placeholder(R.drawable.holder)
+                .error(R.drawable.error)
+                .into(place);
+    }
+
 }
