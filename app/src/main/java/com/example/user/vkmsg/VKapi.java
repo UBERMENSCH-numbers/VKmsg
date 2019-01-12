@@ -17,7 +17,7 @@ public interface VKapi {
             @Query("v") String version);
 
     @GET("method/messages.getConversations")
-    Call<Container_> getConversations (
+    Observable<Container_> getConversations (
             @Query("access_token") String token,
             @Query("filter") String field,
             @Query("v") String version);

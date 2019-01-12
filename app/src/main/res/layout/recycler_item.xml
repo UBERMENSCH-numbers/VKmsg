@@ -23,8 +23,9 @@
 
 
         <TextView
+            android:layout_weight="1"
             android:id="@+id/personNameTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="person name"
@@ -33,11 +34,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_weight="22"
             android:id="@+id/lastMsgTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="4pt"
+            android:gravity="center"
             android:text="last msg text"
             android:textSize="7pt" />
     </LinearLayout>
