@@ -3,8 +3,9 @@ package com.example.user.vkmsg;
 import com.example.user.vkmsg.POJO.POJOConverdsations.Container_;
 import com.example.user.vkmsg.POJO.POJOUsers.Container;
 
+import java.util.List;
+
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -19,7 +20,9 @@ public interface VKapi {
     @GET("method/messages.getConversations")
     Observable<Container_> getConversations (
             @Query("access_token") String token,
-            @Query("filter") String field,
+            @Query("extended") String extended,
+            @Query("filter") String filter,
+            @Query("fields") List<String> fields,
             @Query("v") String version);
 
 }
