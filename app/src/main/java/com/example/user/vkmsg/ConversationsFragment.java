@@ -2,13 +2,16 @@ package com.example.user.vkmsg;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,13 +39,22 @@ import static com.vk.sdk.VKUIHelper.getApplicationContext;
  * A simple {@link Fragment} subclass.
  */
 public class ConversationsFragment extends Fragment {
-    private String token;
-    private String id;
-
-    private MyAdapter myAdapter;
+    public static String token;
+    public static String id;
+    public MyAdapter myAdapter;
     private ArrayList<RecyclerItem> data = new ArrayList<>();
+    private Network network;
+    private MainActivity mainActivity;
 
-    public ConversationsFragment () {}
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) context;
+    }
+
+    public ConversationsFragment () {
+        network = new Network();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,16 +94,18 @@ public class ConversationsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(myAdapter);
         initConversations();
+        myAdapter.setRecyclerItemClickListener(mainActivity);
     }
+
 
     io.reactivex.Observable<Response> getConversations () {
         ArrayList<String> fields = new ArrayList<>();
         fields.add("photo_100");
 
-        return MyApp.getVKapi().getConversations(token,"1","all", fields,"5.92")
+        return Network.getvKapi().getConversations(token,"1","all", fields,"5.92")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(response -> Log.e("response",new GsonBuilder().setPrettyPrinting().create().toJson(response)))
+//                .doOnNext(response -> Log.e("response",new GsonBuilder().setPrettyPrinting().create().toJson(response)))
                 .flatMap(container -> io.reactivex.Observable.just(container.getResponse()));
     }
 
@@ -102,8 +116,8 @@ public class ConversationsFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(response -> {
                     List<Profile> profiles = response.getProfiles();
-                    Log.e("Log", String.valueOf(profiles.size()));
-                    Log.e("response",new GsonBuilder().setPrettyPrinting().create().toJson(response.getProfiles().get(10)));
+//                    Log.e("Log", String.valueOf(profiles.size()));
+//                    Log.e("response",new GsonBuilder().setPrettyPrinting().create().toJson(response.getProfiles().get(10)));
 
                     List<Item> items = response.getItems();
                     List<Integer> ids = new ArrayList<>();
@@ -114,6 +128,7 @@ public class ConversationsFragment extends Fragment {
                     for (Item item : items) {
                         RecyclerItem recyclerItem = new RecyclerItem();
                         recyclerItem.setLastMsg(item.getLastMessage().getText());
+                        recyclerItem.setChatId(item.getConversation().getPeer().getId());
 
                         if (item.getConversation().getPeer().getType().equals("user")) {
                             int pos = ids.indexOf(item.getConversation().getPeer().getId());
@@ -142,7 +157,7 @@ public class ConversationsFragment extends Fragment {
             if (ids.indexOf(str) != ids.size()) stringBuffer.append(",");
         }
 
-        return MyApp.getVKapi().getUser(stringBuffer.toString(),  token, "photo_200", "5.92")
+        return Network.getvKapi().getUser(stringBuffer.toString(),  token, "photo_200", "5.92")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -154,5 +169,4 @@ public class ConversationsFragment extends Fragment {
                 .error(R.drawable.error)
                 .into(place);
     }
-
 }

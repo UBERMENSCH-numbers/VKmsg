@@ -11,6 +11,8 @@ public class RecyclerItem {
    private ImageView conversatiomPic;
    private String url;
 
+    private int chatId;
+
     public RecyclerItem () {
         conversatiomPic = null;
         lastMsg = null;
@@ -57,6 +59,14 @@ public class RecyclerItem {
 
     public void setConversationPic(Drawable conversatiomPic) {
         this.conversatiomPic.setImageDrawable(conversatiomPic);
+    }
+
+    public int getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
     }
 
 }
