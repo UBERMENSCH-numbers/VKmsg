@@ -6,6 +6,7 @@ import com.example.user.vkmsg.POJO.POJOGetLongPoll.Container__;
 import com.example.user.vkmsg.POJO.POJOLongPollHistory.Container___;
 import com.example.user.vkmsg.POJO.POJOUsers.Container;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -19,8 +20,15 @@ import retrofit2.http.Query;
 
 public interface VKapi {
     @GET("method/users.get")
-    Observable<Container> getUser (
-            @Query("user_ids") String user_ids,
+    Observable<Container> getUserObservable (
+            @Query("user_ids") ArrayList<String> ids,
+            @Query("access_token") String token,
+            @Query("fields") String field,
+            @Query("v") String version);
+
+    @GET("method/users.get")
+    Call<Container> getUser (
+            @Query("user_ids") ArrayList<String> ids,
             @Query("access_token") String token,
             @Query("fields") String field,
             @Query("v") String version);

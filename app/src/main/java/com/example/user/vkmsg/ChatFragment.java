@@ -2,6 +2,7 @@ package com.example.user.vkmsg;
 
 
 import android.content.Context;
+import android.mtp.MtpConstants;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -43,6 +44,7 @@ public class ChatFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (MainActivity) context;
+        setRetainInstance(true);
     }
 
     @Override
@@ -64,7 +66,7 @@ public class ChatFragment extends Fragment {
         layoutManager.setReverseLayout(true);
 
         ArrayList<String> fields = new ArrayList<>();
-        Network.getvKapi().getConversationById("100","0", String.valueOf(chat_id), "1", fields, MainActivity.token , "5.92")
+        Network.getvKapi().getConversationById("100","0", String.valueOf(chat_id), "1", fields, MyApp.token , "5.92")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
@@ -85,7 +87,6 @@ public class ChatFragment extends Fragment {
                         messageModels.add(messageModel);
                     }
 
-//                    Collections.sort(messageModels, (o1, o2) -> o1.getMessageId() - o2.getMessageId());
                     return Observable.fromIterable(messageModels);
                 }).doOnNext(chatAdapterDataset::add)
                 .doOnComplete(chatAdapter::notifyDataSetChanged)

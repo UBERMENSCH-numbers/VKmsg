@@ -12,7 +12,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.JsonWriter;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.example.user.vkmsg.POJO.POJOGetLongPoll.Container__;
 import com.example.user.vkmsg.Parser.NewMessageAdd;
 import com.example.user.vkmsg.Parser.VkLongPollUpdates;
@@ -52,7 +51,7 @@ public class LongPollService extends Service {
         vKapi = Network.getvKapi();
         Network.setVkApiLp();
         vKapiLP = Network.getvKapiLP();
-        vKapi.getLongPollServer("0", "2" , MainActivity.token ,"5.92").enqueue(new Callback<Container__>() {
+        vKapi.getLongPollServer("0", "2" , MyApp.token ,"5.92").enqueue(new Callback<Container__>() {
             @Override
             public void onResponse(Call<Container__> call, Response<Container__> response) {
                 if (response.isSuccessful()) {

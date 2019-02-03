@@ -31,7 +31,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view;
-        Log.e("TAG", i + " " + String.valueOf(mDataset.get(i).getFrom_id() + "  " + ConversationsFragment.id));
+        Log.e("TAG", i + " " + String.valueOf(mDataset.get(i).getFrom_id() + "  " + MyApp.id));
 
         if (i == USER_MESSAGE_TYPE) {
             view = LayoutInflater.from(viewGroup.getContext())
@@ -60,7 +60,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        if (mDataset.get(position).getFrom_id() == Integer.valueOf(ConversationsFragment.id)) return USER_MESSAGE_TYPE;
+        if (mDataset.get(position).getFrom_id() == Integer.valueOf(MyApp.id)) return USER_MESSAGE_TYPE;
         return NOT_USER_MESSAGE_TYPE;
     }
 

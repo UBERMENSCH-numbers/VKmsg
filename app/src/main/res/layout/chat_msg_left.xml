@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/messageBack"
+    android:layout_margin="5dp">
 
     <ImageView
         android:id="@+id/user_img"
@@ -15,17 +17,23 @@
 
     <TextView
         android:id="@+id/user_msg"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:gravity="start"
-        android:layout_weight="1.5"
-        android:textSize="5pt"
-        android:text="UserMessage"/>
+        android:layout_gravity="center"
+        android:text="UserMessage"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="5pt" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:background="?android:colorBackground"/>
+
+
+
+
 
 </LinearLayout>

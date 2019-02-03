@@ -1,52 +1,54 @@
 package com.example.user.vkmsg;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.example.user.vkmsg.mvp.contracts.MainActivityContract;
+import com.example.user.vkmsg.mvp.interfaces.IPresenter;
+import com.example.user.vkmsg.mvp.model.MainActivityModel;
+import com.example.user.vkmsg.mvp.presenter.MainActivityPresenter;
+
+import com.example.user.vkmsg.mvp.presenter.PresenterFactory;
+import com.example.user.vkmsg.mvp.view.BaseFragment;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
-import java.nio.file.Path;
+public class MainActivity extends AppCompatActivity implements MainActivityContract.View, LoaderManager.LoaderCallbacks<IPresenter> {
+    private MainActivityPresenter presenter;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-public class MainActivity extends AppCompatActivity implements RecyclerItemClickListener {
-    public static String token;
-    private String id;
-    private FragmentTransaction fragmentTransaction;
-    private ConversationsFragment conversationsFragment;
-    private FragmentManager fragmentManager;
-    private Fragment lastFragment;
-    SharedPreferences sPref;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.detachView();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (!VKSdk.isLoggedIn() || loadText("token") == null) {
-            login();
+        getSupportLoaderManager().initLoader(1, null, this);
 
-        } else {
-            token = loadText("token");
-            id = loadText("id");
-            showConversations();
-        }
-    }
-
-
-    private void login () {
-        VKSdk.login(this, VKScope.FRIENDS,VKScope.MESSAGES);
     }
 
     @Override
@@ -54,125 +56,56 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                id = res.userId;
-                token = res.accessToken;
-                Toast.makeText(getApplicationContext(), "Auth Success", Toast.LENGTH_SHORT).show();
+
+                presenter.onLoginResult(res);
+//                startService(new Intent(MainActivity.this, LongPollService.class));
             }
             @Override
             public void onError(VKError error) {
-                Toast.makeText(getApplicationContext(), "Auth Failed", Toast.LENGTH_SHORT).show();
-            }}))
+                presenter.onLoginError(error);
+            }
+        }))
             super.onActivityResult(requestCode, resultCode, data);
-        saveText("token", token);
-        saveText("id", id);
-        showConversations();
     }
 
     @Override
-    public void onBackPressed() {
-        if (lastFragment instanceof ChatFragment) {
-            showFragment(conversationsFragment);
-        }
+    public void setFragment(BaseFragment fragment) {
+        fragment.atachPresenter(presenter);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container,fragment)
+                .commit();
     }
-
-    private void showConversations () {
-        conversationsFragment = new ConversationsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("id", id);
-        bundle.putString("token", token);
-        conversationsFragment.setArguments(bundle);
-        showFragment(conversationsFragment);
-        startService(new Intent(MainActivity.this, LongPollService.class));
-    }
-
-    private void showFragment (Fragment fragment) {
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-
-        if (lastFragment != null &&
-                lastFragment.equals(conversationsFragment)) {
-            fragmentTransaction.hide(conversationsFragment);
-        }
-
-        if (fragment instanceof ChatFragment) {
-            fragmentTransaction.hide(conversationsFragment);
-        }
-
-        if (fragment.isAdded()) {
-            fragmentTransaction.remove(lastFragment);
-            fragmentTransaction.show(fragment);
-            lastFragment = fragment;
-        } else {
-            fragmentTransaction.add(R.id.fragment_container, fragment);
-            lastFragment = fragment;
-        }
-        fragmentTransaction.commit();
-
-
-
-    }
-
 
     @Override
-    public void onClick(View view, int position, boolean isLongClick, int id) {
-        Log.e("Tag", "Click");
-        if (!isLongClick) {
-            ChatFragment chatFragment = new ChatFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("id", id);
-            chatFragment.setArguments(bundle);
-            showFragment(chatFragment);
-        }
+    public void onClick(int position, boolean isLongClick, int id) { }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    void saveText(String key, String value) {
-        sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        Log.e("SHARED PREF save", "key " + key + " value " + value);
-        ed.putString(key , value);
-        ed.apply();
+    @Override
+    public void VkSdkLogin() {
+        VKSdk.login(this, VKScope.FRIENDS,VKScope.MESSAGES);
     }
 
-    String loadText(String key) {
-        sPref = getPreferences(MODE_PRIVATE);
-        Log.e("SHARED PREF get",  sPref.getString(key, ""));
-        return sPref.getString(key, "");
+    @NonNull
+    @Override
+    public Loader<IPresenter> onCreateLoader(int i, @Nullable Bundle bundle) {
+        return new PresenterLoader<>(this, () -> new MainActivityPresenter(new MainActivityModel(this)));
     }
 
+    @Override
+    public void onLoadFinished(@NonNull Loader<IPresenter> loader, IPresenter iPresenter) {
+        this.presenter = (MainActivityPresenter) iPresenter;
+        presenter.attachView(this);
+        presenter.login();
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<IPresenter> loader) {
+        presenter = null;
+    }
 }
-
-
-
-
-//
-//public void showMenuFragment( Fragment fragment, String tag, boolean addToBackStack ) {
-//
-//        showFragment( R.id.menu_frame, fragment, tag, getLastMenuPushed(), addToBackStack );
-//        setLastMenuPushed( tag );
-//        }
-//
-//protected void showFragment( int resId, Fragment fragment, String tag, String lastTag, boolean addToBackStack ) {
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//
-//        if ( lastTag != null ) {
-//        Fragment lastFragment = fragmentManager.findFragmentByTag( lastTag );
-//        if ( lastFragment != null ) {
-//        transaction.hide( lastFragment );
-//        }
-//        }
-//
-//        if ( fragment.isAdded() ) {
-//        transaction.show( fragment );
-//        }
-//        else {
-//        transaction.add( resId, fragment, tag ).setBreadCrumbShortTitle( tag );
-//        }
-//
-//        if ( addToBackStack ) {
-//        transaction.addToBackStack( tag );
-//        }
-//
-//        transaction.commit();
-//        }

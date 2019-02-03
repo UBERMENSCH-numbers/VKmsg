@@ -9,6 +9,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.example.user.vkmsg.POJO.POJOLongPollHistory.Response;
+import com.example.user.vkmsg.mvp.RxBus;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.vk.sdk.VKSdk;
@@ -17,10 +18,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MyApp extends Application {
+    public static String token;
+    public static String id;
+    private RxBus bus;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        bus = new RxBus();
         VKSdk.initialize(getApplicationContext());
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("request"));
@@ -33,5 +38,9 @@ public class MyApp extends Application {
             Log.e("Response", String.valueOf(response.getHistory().size()));
         }
     };
+
+    public RxBus bus() {
+        return bus;
+    }
 
 }

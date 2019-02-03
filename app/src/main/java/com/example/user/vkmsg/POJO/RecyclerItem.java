@@ -1,40 +1,37 @@
 package com.example.user.vkmsg.POJO;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
-import android.view.DragAndDropPermissions;
-import android.widget.ImageView;
 
 public class RecyclerItem {
    private String conversationTitle;
    private String lastMsg;
-   private ImageView conversatiomPic;
-   private String url;
-
-    private int chatId;
+   private Bitmap conversationPic;
+   private String photoUrl;
+   private int chatId;
 
     public RecyclerItem () {
-        conversatiomPic = null;
+        conversationPic = null;
         lastMsg = null;
         conversationTitle = null;
     }
 
-    public RecyclerItem (String conversationTitle, String lastMsg, ImageView conversationPic) {
-        this.conversatiomPic = conversationPic;
+    public RecyclerItem (String conversationTitle, String lastMsg, Bitmap conversationPic) {
+        this.conversationPic = conversationPic;
         this.lastMsg = lastMsg;
         this.conversationTitle = conversationTitle;
     }
 
-    public void setConversatiomPic(ImageView conversatiomPic) {
-        this.conversatiomPic = conversatiomPic;
+    public void setConversationPic(Bitmap conversationPic) {
+        this.conversationPic = conversationPic;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getConversationTitle() {
@@ -53,12 +50,8 @@ public class RecyclerItem {
         this.lastMsg = lastMsg;
     }
 
-    public ImageView getConversatiomPic() {
-        return conversatiomPic;
-    }
-
-    public void setConversationPic(Drawable conversatiomPic) {
-        this.conversatiomPic.setImageDrawable(conversatiomPic);
+    public Bitmap getConversationPic() {
+        return conversationPic;
     }
 
     public int getChatId() {

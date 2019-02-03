@@ -13,9 +13,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.fastjson.FastJsonConverterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class Network {
     private static Retrofit mRetrofit;
@@ -26,15 +24,15 @@ public class Network {
     private static VKapiLP vKapiLP;
     private static HttpLoggingInterceptor loggingInterceptor;
 
-    public Network () {
+    static {
 
         loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY );
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         client = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .connectTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(5,TimeUnit.SECONDS).build();
+                .readTimeout(5, TimeUnit.SECONDS).build();
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl("https://api.vk.com/")
