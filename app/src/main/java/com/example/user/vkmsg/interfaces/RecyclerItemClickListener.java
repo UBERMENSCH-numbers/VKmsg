@@ -1,4 +1,4 @@
-package com.example.user.vkmsg;
+package com.example.user.vkmsg.interfaces;
 
 import android.view.View;
 

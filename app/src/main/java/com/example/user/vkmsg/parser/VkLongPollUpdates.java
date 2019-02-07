@@ -1,6 +1,4 @@
-package com.example.user.vkmsg.Parser;
-
-import com.example.user.vkmsg.POJO.POJOLongPollHistory.Messages;
+package com.example.user.vkmsg.parser;
 
 import java.util.List;
 

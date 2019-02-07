@@ -1,14 +1,14 @@
 package com.example.user.vkmsg.mvp.contracts;
 
-import com.example.user.vkmsg.mvp.view.BaseFragment;
+import com.example.user.vkmsg.base.BaseNavigationFragment;
 
 public interface FragmentNavigationContract {
     interface View {
-        void atachPresenter(Presenter presenter);
+        void attachPresenter(Presenter presenter);
 
     }
 
     interface Presenter {
-        void addFragment(BaseFragment fragment);
+        void addFragment(BaseNavigationFragment fragment);
     }
 }

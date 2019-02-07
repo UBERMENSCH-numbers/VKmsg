@@ -4,19 +4,20 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-import com.example.user.vkmsg.ConversationsFragment;
 import com.example.user.vkmsg.MyApp;
-import com.example.user.vkmsg.Network;
+import com.example.user.vkmsg.network.Network;
 import com.example.user.vkmsg.POJO.AppBar;
 import com.example.user.vkmsg.POJO.POJOUsers.Container;
-import com.example.user.vkmsg.mvp.RxBus;
+import com.example.user.vkmsg.RxBus;
 import com.example.user.vkmsg.mvp.contracts.ConversationFragmentContract;
+import com.example.user.vkmsg.utils.PhotoOperations;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,6 +27,7 @@ public class ConversationFragmentModel implements ConversationFragmentContract.M
     private RxBus bus;
 
     public ConversationFragmentModel (RxBus bus) {
+        Log.e("ConversationFragModel", "CREATED");
         this.bus = bus;
     }
 
@@ -34,23 +36,12 @@ public class ConversationFragmentModel implements ConversationFragmentContract.M
         ArrayList<String> ids = new ArrayList<>();
         ids.add(MyApp.id);
 
-        target = new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                appBar.setPicture(bitmap);
-                bus.send(appBar);
-            }
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {}};
-
-        Network.getvKapi().getUser(ids, MyApp.token, "photo_200", "5.92").enqueue(new Callback<Container>() {
+        Network.getvKapi().getUser(ids, MyApp.token, "photo_max_orig", "5.92").enqueue(new Callback<Container>() {
             @Override
             public void onResponse(Call<Container> call, Response<Container> response) {
                 com.example.user.vkmsg.POJO.POJOUsers.Response response_ = response.body().getResponse().get(0);
                 appBar.setUserName(response_.getFirstName() + " " + response_.getLastName());
-                loadPic(response_.getPhoto200(), target);
+                loadPic(response_.getPhotoMaxOrig(), appBar);
             }
 
             @Override
@@ -58,15 +49,17 @@ public class ConversationFragmentModel implements ConversationFragmentContract.M
 
             }
         });
-
-
     }
 
-    void loadPic(String url, Target target) {
-        Picasso.get()
-                .load(url)
-                .placeholder(com.example.user.vkmsg.R.drawable.holder)
-                .into(target);
+    void loadPic(String url, AppBar appBar) {
+        Observable
+                .fromCallable(() -> PhotoOperations.getCroppedBitmap(Picasso.get().load(url).get()))
+                .doOnNext(bitmap -> {
+                    appBar.setPicture(bitmap);
+                    bus.send(appBar);
+                })
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
 

@@ -9,17 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.user.vkmsg.POJO.RecyclerItem;
-import com.example.user.vkmsg.mvp.contracts.ConversationFragmentContract;
+import com.example.user.vkmsg.interfaces.RecyclerItemClickListener;
 import com.example.user.vkmsg.mvp.contracts.ConversationRecyclerAdapterContract;
-
-import java.util.ArrayList;
 
 public class ConversationRecyclerAdapter extends RecyclerView.Adapter<ConversationRecyclerAdapter.ConversationViewHolder>{
     private RecyclerItemClickListener recyclerItemClickListener;
-    private final ConversationRecyclerAdapterContract.Presenter presenter;
+    private ConversationRecyclerAdapterContract.Presenter presenter;
 
-    ConversationRecyclerAdapter(ConversationRecyclerAdapterContract.Presenter presenter) {
+    public ConversationRecyclerAdapter(ConversationRecyclerAdapterContract.Presenter presenter) {
         this.presenter = presenter;
         presenter.attachAdapter(this);
     }
@@ -44,6 +41,11 @@ public class ConversationRecyclerAdapter extends RecyclerView.Adapter<Conversati
 
     public void setRecyclerItemClickListener (RecyclerItemClickListener recyclerItemClickListener) {
         this.recyclerItemClickListener = recyclerItemClickListener;
+    }
+
+    public void detach () {
+        presenter.detach();
+        presenter = null;
     }
 
     public void notifyDataChanged() {

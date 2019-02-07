@@ -3,35 +3,19 @@ package com.example.user.vkmsg;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.JsonWriter;
 import android.util.Log;
 
+import com.example.user.vkmsg.network.Network;
+import com.example.user.vkmsg.network.VKapi;
+import com.example.user.vkmsg.network.VKapiLP;
 import com.example.user.vkmsg.POJO.POJOGetLongPoll.Container__;
-import com.example.user.vkmsg.Parser.NewMessageAdd;
-import com.example.user.vkmsg.Parser.VkLongPollUpdates;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.user.vkmsg.parser.NewMessageAdd;
+import com.example.user.vkmsg.parser.VkLongPollUpdates;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Observable;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.Nullable;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

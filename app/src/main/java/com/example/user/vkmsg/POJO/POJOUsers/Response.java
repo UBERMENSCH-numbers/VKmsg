@@ -26,6 +26,20 @@ public class Response {
     @Expose
     private String photo200;
 
+    @SerializedName("photo_max_orig")
+    @Expose
+    private String photoMaxOrig;
+
+    public String getPhotoMaxOrig() {
+        return photoMaxOrig;
+    }
+
+    public void setPhotoMaxOrig(String photoMaxOrig) {
+        this.photoMaxOrig = photoMaxOrig;
+    }
+
+
+
     public Integer getId() {
         return id;
     }

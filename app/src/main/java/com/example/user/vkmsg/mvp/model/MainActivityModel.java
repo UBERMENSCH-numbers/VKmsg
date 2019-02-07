@@ -20,7 +20,7 @@ public class MainActivityModel implements MainActivityContract.Model {
 
     @Override
     public void savePreferences(@NonNull String value, @NonNull String key) {
-        sPref = context.getSharedPreferences(LOGIN_SHARED_PREFERECES, MODE_PRIVATE);
+        sPref = context.getSharedPreferences(LOGIN_SHARED_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         Log.e("SHARED PREFERENCES SAVE", "key " + key + " value " + value);
         ed.putString(key , value);
@@ -29,7 +29,7 @@ public class MainActivityModel implements MainActivityContract.Model {
 
     @Override
     public String loadPreferences(String key) {
-        sPref = context.getSharedPreferences(LOGIN_SHARED_PREFERECES ,MODE_PRIVATE);
+        sPref = context.getSharedPreferences(LOGIN_SHARED_PREFERENCES,MODE_PRIVATE);
         String value = sPref.getString(key, "");
         Log.e("SHARED PREFERENCES LOAD", key + " returns " + value + " value");
         return value;

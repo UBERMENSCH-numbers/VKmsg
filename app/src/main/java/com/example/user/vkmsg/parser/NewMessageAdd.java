@@ -1,4 +1,4 @@
-package com.example.user.vkmsg.Parser;
+package com.example.user.vkmsg.parser;
 
 public class NewMessageAdd {
     public int messageId;

@@ -1,4 +1,4 @@
-package com.example.user.vkmsg.Parser;
+package com.example.user.vkmsg.parser;
 
 import android.util.Log;
 

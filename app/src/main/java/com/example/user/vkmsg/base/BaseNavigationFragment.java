@@ -1,4 +1,4 @@
-package com.example.user.vkmsg.mvp.view;
+package com.example.user.vkmsg.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.user.vkmsg.mvp.contracts.FragmentNavigationContract;
 
-public abstract class BaseFragment extends Fragment implements FragmentNavigationContract.View {
+public abstract class BaseNavigationFragment extends Fragment implements FragmentNavigationContract.View {
 
     // the root view
     protected View rootView;
@@ -34,7 +34,7 @@ public abstract class BaseFragment extends Fragment implements FragmentNavigatio
      * @param presenter
      */
     @Override
-    public void atachPresenter(FragmentNavigationContract.Presenter presenter) {
+    public void attachPresenter(FragmentNavigationContract.Presenter presenter) {
         navigationPresenter = presenter;
     }
 

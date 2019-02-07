@@ -1,44 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="90dp">
 
 
     <ImageView
         android:id="@+id/conversationPic"
-        android:layout_marginLeft="5dp"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/rounded_image"/>
+        android:layout_margin="5dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center_vertical" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:layout_margin="6dp"
-        android:background="@drawable/rounded_layout"
-        android:elevation="3dp"
-        android:orientation="vertical">
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:divider="@drawable/conversaton"
+        android:dividerPadding="20dp"
+        android:showDividers="end">
 
 
         <TextView
             android:layout_weight="1"
+            android:maxLines="1"
+            android:textStyle="bold"
             android:id="@+id/personNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             android:text="person name"
-            android:textSize="11pt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="8pt" />
 
         <TextView
             android:layout_weight="1"
@@ -46,11 +39,9 @@
             android:id="@+id/lastMsgTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:gravity="start"
+            android:layout_margin="7dp"
             android:text="last msg text"
-            android:textSize="7pt" />
+            android:textSize="8pt" />
     </LinearLayout>
-
-
 </LinearLayout>

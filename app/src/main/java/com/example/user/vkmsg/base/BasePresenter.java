@@ -1,7 +1,7 @@
-package com.example.user.vkmsg.mvp.presenter;
+package com.example.user.vkmsg.base;
 
-import com.example.user.vkmsg.mvp.interfaces.IPresenter;
-import com.example.user.vkmsg.mvp.interfaces.IView;
+import com.example.user.vkmsg.interfaces.IPresenter;
+import com.example.user.vkmsg.interfaces.IView;
 
 public abstract class BasePresenter<T extends IView> implements IPresenter<T> {
 

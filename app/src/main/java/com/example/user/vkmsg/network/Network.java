@@ -1,8 +1,7 @@
-package com.example.user.vkmsg;
+package com.example.user.vkmsg.network;
 
-import com.example.user.vkmsg.Parser.LongPollUpdatesDeserializer;
-import com.example.user.vkmsg.Parser.VkLongPollUpdates;
-import com.example.user.vkmsg.VKapi;
+import com.example.user.vkmsg.parser.LongPollUpdatesDeserializer;
+import com.example.user.vkmsg.parser.VkLongPollUpdates;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -11,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

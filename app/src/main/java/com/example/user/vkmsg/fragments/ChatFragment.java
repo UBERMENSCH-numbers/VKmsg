@@ -1,33 +1,31 @@
-package com.example.user.vkmsg;
+package com.example.user.vkmsg.fragments;
 
 
 import android.content.Context;
-import android.mtp.MtpConstants;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.user.vkmsg.ChatAdapter;
+import com.example.user.vkmsg.MainActivity;
+import com.example.user.vkmsg.MyApp;
+import com.example.user.vkmsg.network.Network;
 import com.example.user.vkmsg.POJO.MessageModel;
 import com.example.user.vkmsg.POJO.POJOGetConversation.Item;
 import com.example.user.vkmsg.POJO.POJOGetConversation.Profile;
+import com.example.user.vkmsg.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.vk.sdk.VKUIHelper.getApplicationContext;
-import static io.reactivex.Observable.fromIterable;
 
 
 /**

@@ -1,18 +1,16 @@
 package com.example.user.vkmsg.mvp.presenter;
 
 
-import android.view.View;
+import android.os.Handler;
 
-import com.example.user.vkmsg.MyApp;
 import com.example.user.vkmsg.POJO.AppBar;
-import com.example.user.vkmsg.mvp.RxBus;
+import com.example.user.vkmsg.RxBus;
 import com.example.user.vkmsg.mvp.contracts.ConversationFragmentContract;
-import com.example.user.vkmsg.mvp.interfaces.IView;
 import com.example.user.vkmsg.mvp.model.ConversationFragmentModel;
 
-import io.reactivex.functions.Consumer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class ConversationFragmentPresenter implements ConversationFragmentContract.Presenter {
+public class ConversationFragmentPresenter implements ConversationFragmentContract.Presenter{
     private ConversationFragmentContract.View view;
     private ConversationFragmentContract.Model model;
     private RxBus bus;
@@ -27,29 +25,31 @@ public class ConversationFragmentPresenter implements ConversationFragmentContra
     }
 
     @Override
-    public void attachView(IView mvpView) {
-        view = (ConversationFragmentContract.View) mvpView;
+    public void attachView(ConversationFragmentContract.View mvpView) {
+        view = mvpView;
         model = new ConversationFragmentModel(bus);
     }
 
     @Override
     public void viewIsReady() {
         model.downloadAppBar(new AppBar());
-        bus.toObservable().filter((o -> o instanceof AppBar)).subscribe(o -> {
+        view.initRecyclerView();
+
+        bus.toObservable()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter((o -> o instanceof AppBar)).subscribe(o -> {
             view.setAppBar((AppBar) o);
         });
-        view.initRecyclerView();
     }
 
     @Override
     public void detachView() {
         view = null;
         model = null;
-        bus = null;
     }
 
     @Override
     public void destroy() {
-
     }
 }

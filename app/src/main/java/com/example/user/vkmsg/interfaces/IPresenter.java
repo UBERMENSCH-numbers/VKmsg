@@ -1,4 +1,4 @@
-package com.example.user.vkmsg.mvp.interfaces;
+package com.example.user.vkmsg.interfaces;
 
 public interface IPresenter<V extends IView> {
 

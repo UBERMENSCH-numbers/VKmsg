@@ -52,8 +52,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
         Picasso.get().
                 load(mDataset.get(i).getPhoto_100())
-                .placeholder(R.drawable.holder)
-                .error(R.drawable.error)
+
                 .into(chatViewHolder.photo);
 
     }

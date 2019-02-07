@@ -1,11 +1,9 @@
 package com.example.user.vkmsg.mvp.contracts;
 
 import com.example.user.vkmsg.POJO.AppBar;
-import com.example.user.vkmsg.RecyclerItemClickListener;
-import com.example.user.vkmsg.mvp.interfaces.IPresenter;
-import com.example.user.vkmsg.mvp.interfaces.IView;
-
-import io.reactivex.Observable;
+import com.example.user.vkmsg.interfaces.RecyclerItemClickListener;
+import com.example.user.vkmsg.interfaces.IPresenter;
+import com.example.user.vkmsg.interfaces.IView;
 
 public interface ConversationFragmentContract {
 
@@ -14,7 +12,7 @@ public interface ConversationFragmentContract {
         void initRecyclerView();
     }
 
-    interface Presenter extends RecyclerItemClickListener, IPresenter {
+    interface Presenter extends RecyclerItemClickListener, IPresenter<ConversationFragmentContract.View> {
 
     }
 

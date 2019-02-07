@@ -1,19 +1,21 @@
 package com.example.user.vkmsg.mvp.presenter;
 
-import com.example.user.vkmsg.ConversationsFragment;
+import com.example.user.vkmsg.base.BasePresenter;
+import com.example.user.vkmsg.fragments.ConversationsFragment;
 import com.example.user.vkmsg.MyApp;
+import com.example.user.vkmsg.mvp.contracts.FragmentNavigationContract;
 import com.example.user.vkmsg.mvp.contracts.MainActivityContract;
-import com.example.user.vkmsg.mvp.model.MainActivityModel;
-import com.example.user.vkmsg.mvp.view.BaseFragment;
-import com.example.user.vkmsg.mvp.interfaces.IView;
+import com.example.user.vkmsg.base.BaseNavigationFragment;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.api.VKError;
 
-public class MainActivityPresenter extends BasePresenter implements MainActivityContract.Presenter {
+public class MainActivityPresenter extends BasePresenter<MainActivityContract.View> implements
+        MainActivityContract.Presenter{
+
     MainActivityContract.View view;
     MainActivityContract.Model model;
 
-    public MainActivityPresenter (MainActivityModel model) {
+    public MainActivityPresenter (MainActivityContract.Model model) {
         this.model = model;
     }
 
@@ -31,9 +33,8 @@ public class MainActivityPresenter extends BasePresenter implements MainActivity
         } else {
             MyApp.id = id;
             MyApp.token = token;
-            addFragment(new ConversationsFragment());
+            if (!view.hasFragment()) addFragment(new ConversationsFragment());
         }
-
     }
 
     @Override
@@ -42,7 +43,7 @@ public class MainActivityPresenter extends BasePresenter implements MainActivity
         model.savePreferences(res.userId, "id");
         MyApp.id = res.userId;
         MyApp.token = res.accessToken;
-        addFragment(new ConversationsFragment());
+        if (!view.hasFragment()) addFragment(new ConversationsFragment());
     }
 
     @Override
@@ -51,14 +52,14 @@ public class MainActivityPresenter extends BasePresenter implements MainActivity
     }
 
     @Override
-    public void attachView(IView mvpView) {
+    public void attachView(MainActivityContract.View mvpView) {
         super.attachView(mvpView);
-        view = (MainActivityContract.View) mvpView;
+        view = mvpView;
     }
 
-
     @Override
-    public void addFragment(BaseFragment fragment) {
+    public void addFragment(BaseNavigationFragment fragment) {
         view.setFragment(fragment);
     }
 }
+

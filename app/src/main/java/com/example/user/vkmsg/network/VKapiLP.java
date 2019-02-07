@@ -1,11 +1,10 @@
-package com.example.user.vkmsg;
+package com.example.user.vkmsg.network;
 
-import com.example.user.vkmsg.Parser.VkLongPollUpdates;
+import com.example.user.vkmsg.parser.VkLongPollUpdates;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 public interface VKapiLP {
     @GET("{server}")
