@@ -8,7 +8,7 @@ import com.example.user.vkmsg.POJO.RecyclerItem;
 import com.example.user.vkmsg.RxBus;
 import com.example.user.vkmsg.mvp.contracts.ConversationRecyclerAdapterContract;
 import com.example.user.vkmsg.utils.PhotoOperations;
-import com.example.user.vkmsg.utils.SpecialModel;
+import com.example.user.vkmsg.utils.SpecialModelConversation;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,14 +36,14 @@ public class ConversationRecyclerModel implements ConversationRecyclerAdapterCon
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(container_ -> Observable.just(container_.getResponse()))
                 .flatMap(response -> Observable.zip(Observable.fromIterable(response.getItems()),
-                        Observable.fromIterable(response.getProfiles()), (a, b) -> SpecialModel.create(a, response.getProfiles()))
+                        Observable.fromIterable(response.getProfiles()), (a, b) -> SpecialModelConversation.create(a, response.getProfiles()))
                         .map(this::parseData))
                 .doOnNext((recyclerItem) -> rxBus.send(recyclerItem))
 //                .doOnComplete(() -> rxBus.onComplete())
                 .subscribe();
     }
 
-    private RecyclerItem parseData (SpecialModel itemProfilePair) {
+    private RecyclerItem parseData (SpecialModelConversation itemProfilePair) {
         RecyclerItem recyclerItem = new RecyclerItem();
         recyclerItem.setLastMsg(itemProfilePair.item.getLastMessage().getText());
         recyclerItem.setChatId(itemProfilePair.item.getConversation().getPeer().getId());

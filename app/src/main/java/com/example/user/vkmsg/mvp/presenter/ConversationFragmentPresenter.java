@@ -20,11 +20,6 @@ public class ConversationFragmentPresenter implements ConversationFragmentContra
     }
 
     @Override
-    public void onClick (int position, boolean isLongClick, int chatId) {
-
-    }
-
-    @Override
     public void attachView(ConversationFragmentContract.View mvpView) {
         view = mvpView;
         model = new ConversationFragmentModel(bus);

@@ -26,7 +26,11 @@ public class ConversationRecyclerAdapter extends RecyclerView.Adapter<Conversati
     public ConversationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_item, parent, false);
-        return new ConversationViewHolder(v);
+        ConversationViewHolder holder = new ConversationViewHolder(v);
+        holder.itemView.setOnClickListener((View view) -> {
+            recyclerItemClickListener.onClick(holder.getAdapterPosition(), false, holder.id);
+        });
+        return holder;
     }
 
     @Override
@@ -46,10 +50,6 @@ public class ConversationRecyclerAdapter extends RecyclerView.Adapter<Conversati
     public void detach () {
         presenter.detach();
         presenter = null;
-    }
-
-    public void notifyDataChanged() {
-        notifyDataSetChanged();
     }
 
     public class ConversationViewHolder extends RecyclerView.ViewHolder implements ConversationRecyclerAdapterContract.View {
@@ -83,11 +83,6 @@ public class ConversationRecyclerAdapter extends RecyclerView.Adapter<Conversati
         @Override
         public void setId(int id) {
             this.id = id;
-        }
-
-        @Override
-        public void notifyData() {
-            notifyDataChanged();
         }
     }
 

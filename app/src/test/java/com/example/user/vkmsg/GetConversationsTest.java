@@ -2,29 +2,21 @@ package com.example.user.vkmsg;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.transition.Scene;
-import android.util.AndroidException;
 import android.util.Log;
 
 import com.example.user.vkmsg.POJO.RecyclerItem;
-import com.example.user.vkmsg.mvp.model.ConversationRecyclerModel;
 import com.example.user.vkmsg.network.Network;
 import com.example.user.vkmsg.utils.PhotoOperations;
-import com.example.user.vkmsg.utils.SpecialModel;
+import com.example.user.vkmsg.utils.SpecialModelConversation;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -42,7 +34,7 @@ public class GetConversationsTest {
                 .observeOn(Schedulers.io())
                 .flatMap(container_ -> Observable.just(container_.getResponse()))
                 .flatMap(response -> Observable.zip(Observable.fromIterable(response.getItems()),
-                        Observable.fromIterable(response.getProfiles()), (a, b) -> SpecialModel.create(a, response.getProfiles()))
+                        Observable.fromIterable(response.getProfiles()), (a, b) -> SpecialModelConversation.create(a, response.getProfiles()))
                         .map(this::parseData));
     }
 
@@ -79,7 +71,7 @@ public class GetConversationsTest {
     }
 
 
-    public RecyclerItem parseData (SpecialModel itemProfilePair) {
+    public RecyclerItem parseData (SpecialModelConversation itemProfilePair) {
         RecyclerItem recyclerItem = new RecyclerItem();
         recyclerItem.setLastMsg(itemProfilePair.item.getLastMessage().getText());
         recyclerItem.setChatId(itemProfilePair.item.getConversation().getPeer().getId());

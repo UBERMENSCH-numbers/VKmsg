@@ -4,15 +4,14 @@ import android.util.Log;
 
 import com.example.user.vkmsg.POJO.POJOConverdsations.Item;
 import com.example.user.vkmsg.POJO.POJOConverdsations.Profile;
-import com.example.user.vkmsg.mvp.model.ConversationRecyclerModel;
 
 import java.util.List;
 
-public class SpecialModel {
+public class SpecialModelConversation {
     public final Item item;
     public final Profile profile;
 
-    SpecialModel(Item item, List<Profile> pList) {
+    private SpecialModelConversation(Item item, List<Profile> pList) {
         if (item.getConversation().getPeer().getType().equals("user")) {
             this.item = item;
             this.profile = getProfile(item.getConversation().getPeer().getId(), pList);
@@ -22,8 +21,8 @@ public class SpecialModel {
         }
     }
 
-    public static SpecialModel create (Item item, List<Profile> pList) {
-        return new SpecialModel(item, pList);
+    public static SpecialModelConversation create (Item item, List<Profile> pList) {
+        return new SpecialModelConversation(item, pList);
     }
 
     private Profile getProfile (int id, List<Profile> profiles) {

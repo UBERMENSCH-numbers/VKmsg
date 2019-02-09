@@ -1,25 +1,17 @@
 package com.example.user.vkmsg.mvp.presenter;
 
-import android.graphics.Bitmap;
-import android.os.Handler;
 import android.util.Log;
 
 import com.example.user.vkmsg.ConversationRecyclerAdapter;
 import com.example.user.vkmsg.POJO.RecyclerItem;
 import com.example.user.vkmsg.RxBus;
 import com.example.user.vkmsg.mvp.contracts.ConversationRecyclerAdapterContract;
-import com.example.user.vkmsg.utils.PhotoOperations;
-import com.example.user.vkmsg.utils.SpecialModel;
-
-import org.reactivestreams.Subscriber;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.LogRecord;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 

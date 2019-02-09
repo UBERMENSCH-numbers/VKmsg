@@ -2,17 +2,25 @@ package com.example.user.vkmsg.POJO;
 
 public class MessageModel implements Comparable<MessageModel> {
     String text;
-    int chat_id;
-    int from_id;
+    String user_name;
     String photo_100;
-
     int messageId;
+    int from_id;
 
-    public MessageModel(String text, int chat_id, int from_id, String photo_100) {
-        this.text = text;
-        this.chat_id = chat_id;
+    public int getFrom_id() {
+        return from_id;
+    }
+
+    public void setFrom_id(int from_id) {
         this.from_id = from_id;
-        this.photo_100 = photo_100;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public MessageModel() {
@@ -32,22 +40,6 @@ public class MessageModel implements Comparable<MessageModel> {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public int getChat_id() {
-        return chat_id;
-    }
-
-    public void setChat_id(int chat_id) {
-        this.chat_id = chat_id;
-    }
-
-    public int getFrom_id() {
-        return from_id;
-    }
-
-    public void setFrom_id(int peer_id) {
-        this.from_id = peer_id;
     }
 
     public String getPhoto_100() {

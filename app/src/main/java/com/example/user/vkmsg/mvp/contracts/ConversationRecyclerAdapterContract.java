@@ -14,14 +14,13 @@ public interface ConversationRecyclerAdapterContract {
         void setLastMsg(String lastMsg);
         void setImageView (Bitmap bitmap);
         void setId (int id);
-        void notifyData();
     }
 
     interface Presenter {
         void onBindRepositoryRowViewAtPosition(int position, ConversationRecyclerAdapterContract.View rowView);
         int getRepositoriesRowsCount();
-        void attachAdapter(ConversationRecyclerAdapter adapter);
         void detach ();
+        void attachAdapter(ConversationRecyclerAdapter adapter);
     }
 
     interface Model {

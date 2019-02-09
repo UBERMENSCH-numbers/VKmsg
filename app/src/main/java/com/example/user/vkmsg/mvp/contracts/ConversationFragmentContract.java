@@ -12,7 +12,7 @@ public interface ConversationFragmentContract {
         void initRecyclerView();
     }
 
-    interface Presenter extends RecyclerItemClickListener, IPresenter<ConversationFragmentContract.View> {
+    interface Presenter extends IPresenter<ConversationFragmentContract.View> {
 
     }
 
