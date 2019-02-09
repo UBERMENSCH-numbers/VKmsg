@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import com.example.user.vkmsg.MyApp;
 import com.example.user.vkmsg.network.Network;
-import com.example.user.vkmsg.POJO.RecyclerItem;
+import com.example.user.vkmsg.models.RecyclerItem;
 import com.example.user.vkmsg.RxBus;
 import com.example.user.vkmsg.mvp.contracts.ConversationRecyclerAdapterContract;
 import com.example.user.vkmsg.utils.PhotoOperations;

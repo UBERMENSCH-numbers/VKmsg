@@ -1,13 +1,11 @@
 package com.example.user.vkmsg.mvp.model;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.example.user.vkmsg.MyApp;
 import com.example.user.vkmsg.network.Network;
-import com.example.user.vkmsg.POJO.AppBar;
-import com.example.user.vkmsg.POJO.POJOUsers.Container;
+import com.example.user.vkmsg.models.AppBar;
+import com.example.user.vkmsg.models.modelUsers.Container;
 import com.example.user.vkmsg.RxBus;
 import com.example.user.vkmsg.mvp.contracts.ConversationFragmentContract;
 import com.example.user.vkmsg.utils.PhotoOperations;
@@ -39,7 +37,7 @@ public class ConversationFragmentModel implements ConversationFragmentContract.M
         Network.getvKapi().getUser(ids, MyApp.token, "photo_max_orig", "5.92").enqueue(new Callback<Container>() {
             @Override
             public void onResponse(Call<Container> call, Response<Container> response) {
-                com.example.user.vkmsg.POJO.POJOUsers.Response response_ = response.body().getResponse().get(0);
+                com.example.user.vkmsg.models.modelUsers.Response response_ = response.body().getResponse().get(0);
                 appBar.setUserName(response_.getFirstName() + " " + response_.getLastName());
                 loadPic(response_.getPhotoMaxOrig(), appBar);
             }

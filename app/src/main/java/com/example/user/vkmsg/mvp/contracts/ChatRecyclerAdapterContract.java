@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import com.example.user.vkmsg.ChatFragmentAdapter;
 import com.example.user.vkmsg.RxBus;
 
+import io.reactivex.Observable;
+
 public interface ChatRecyclerAdapterContract {
     interface View {
         void setAvatar (Bitmap bitmap);
@@ -21,5 +23,6 @@ public interface ChatRecyclerAdapterContract {
     }
     interface Model {
         void loadData(int id);
+        Observable<Bitmap> getPic (String url);
     }
 }

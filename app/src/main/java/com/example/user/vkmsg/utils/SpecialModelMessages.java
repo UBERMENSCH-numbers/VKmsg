@@ -2,8 +2,8 @@ package com.example.user.vkmsg.utils;
 
 import android.util.Log;
 
-import com.example.user.vkmsg.POJO.POJOGetConversation.Item;
-import com.example.user.vkmsg.POJO.POJOGetConversation.Profile;
+import com.example.user.vkmsg.models.modelGetConversation.Item;
+import com.example.user.vkmsg.models.modelGetConversation.Profile;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class SpecialModelMessages {
 
     private SpecialModelMessages(Item item, List<Profile> profiles) {
         this.item = item;
-        this.profile = findProfile(item.getId(), profiles);
+        this.profile = findProfile(item.getFromId(), profiles);
     }
 
     private Profile findProfile(int id, List<Profile> profiles) {

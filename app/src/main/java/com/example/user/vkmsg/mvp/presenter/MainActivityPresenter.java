@@ -61,5 +61,7 @@ public class MainActivityPresenter extends BasePresenter<MainActivityContract.Vi
     public void addFragment(BaseNavigationFragment fragment) {
         view.setFragment(fragment);
     }
+
+
 }
 

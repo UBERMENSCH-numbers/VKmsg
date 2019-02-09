@@ -1,15 +1,14 @@
 package com.example.user.vkmsg.network;
 
-import com.example.user.vkmsg.POJO.POJOConverdsations.Container_;
-import com.example.user.vkmsg.POJO.POJOGetConversation.Container____;
-import com.example.user.vkmsg.POJO.POJOGetLongPoll.Container__;
-import com.example.user.vkmsg.POJO.POJOLongPollHistory.Container___;
-import com.example.user.vkmsg.POJO.POJOUsers.Container;
+import com.example.user.vkmsg.models.modelConversations.Container_;
+import com.example.user.vkmsg.models.modelGetConversation.Container____;
+import com.example.user.vkmsg.models.modelGetLongPoll.Container__;
+import com.example.user.vkmsg.models.modelLongPollHistory.Container___;
+import com.example.user.vkmsg.models.modelUsers.Container;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;

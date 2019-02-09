@@ -17,10 +17,9 @@ import android.widget.Toast;
 
 import com.example.user.vkmsg.ConversationRecyclerAdapter;
 import com.example.user.vkmsg.MyApp;
-import com.example.user.vkmsg.POJO.AppBar;
+import com.example.user.vkmsg.models.AppBar;
 import com.example.user.vkmsg.R;
 import com.example.user.vkmsg.RxBus;
-import com.example.user.vkmsg.base.BaseNavigationFragment;
 import com.example.user.vkmsg.factories.ConversationFragmentPresenterFactory;
 import com.example.user.vkmsg.factories.IPresenterFactory;
 import com.example.user.vkmsg.base.BaseFragment;
@@ -130,5 +129,11 @@ public class ConversationsFragment extends BaseFragment<ConversationFragmentPres
     @Override
     public void onClick(int position, boolean isLongClick, int chatId) {
         showToast(String.valueOf(position));
+        ChatFragment chatFragment = new ChatFragment();
+        Bundle bundle = new Bundle();
+        Log.e("CREATE FRAGMENT", String.valueOf(chatId));
+        bundle.putInt("chatId", chatId);
+        chatFragment.setArguments(bundle);
+        navigationPresenter.addFragment(new ChatFragment());
     }
 }

@@ -3,7 +3,7 @@ package com.example.user.vkmsg.mvp.presenter;
 import android.util.Log;
 
 import com.example.user.vkmsg.ConversationRecyclerAdapter;
-import com.example.user.vkmsg.POJO.RecyclerItem;
+import com.example.user.vkmsg.models.RecyclerItem;
 import com.example.user.vkmsg.RxBus;
 import com.example.user.vkmsg.mvp.contracts.ConversationRecyclerAdapterContract;
 

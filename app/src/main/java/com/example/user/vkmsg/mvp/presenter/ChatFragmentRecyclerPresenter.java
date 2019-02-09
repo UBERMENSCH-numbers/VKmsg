@@ -2,7 +2,7 @@ package com.example.user.vkmsg.mvp.presenter;
 
 import com.example.user.vkmsg.ChatFragmentAdapter;
 import com.example.user.vkmsg.MyApp;
-import com.example.user.vkmsg.POJO.MessageModel;
+import com.example.user.vkmsg.models.MessageModel;
 import com.example.user.vkmsg.RxBus;
 import com.example.user.vkmsg.mvp.contracts.ChatRecyclerAdapterContract;
 
@@ -23,12 +23,14 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
         this.bus = rxBus;
         this.model = model;
         this.chatId = chatId;
+        observable = new CompositeDisposable();
+        data = new ArrayList<>();
     }
 
     @Override
     public void attachAdapter(ChatFragmentAdapter adapter) {
         this.adapter = adapter;
-        model.loadData(chatId);
+        model.loadData(425077437);
 
         observable.add(bus.toObservable().filter(o -> o instanceof MessageModel)
                 .subscribeWith(new DisposableObserver<Object>() {
@@ -52,10 +54,13 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
 
     @Override
     public void onBindRepositoryRowViewAtPosition(int position, ChatRecyclerAdapterContract.View rowView) {
-        rowView.setMessageText(data.get(position).getText());
-        rowView.setName(data.get(position).getUser_name());
+        if (getLayoutType(position) == 2) {
+            rowView.setAvatar(model.getPic(data.get(position).getPhoto_100()).blockingFirst());
+            rowView.setName(data.get(position).getUser_name());
+        }
         rowView.setFromId(data.get(position).getFrom_id());
-        rowView.setAvatar();
+        rowView.setMessageText(data.get(position).getText());
+
     }
 
     @Override

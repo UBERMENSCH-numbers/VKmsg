@@ -72,7 +72,7 @@ public class ChatFragmentAdapter extends RecyclerView.Adapter<ChatFragmentAdapte
 
         @Override
         public void setAvatar(Bitmap bitmap) {
-            if (this.type == NOT_USER_MESSAGE_TYPE) photo.setImageBitmap(bitmap);
+            photo.setImageBitmap(bitmap);
         }
 
         @Override
@@ -82,7 +82,7 @@ public class ChatFragmentAdapter extends RecyclerView.Adapter<ChatFragmentAdapte
 
         @Override
         public void setName(String text) {
-            if (this.type == NOT_USER_MESSAGE_TYPE) this.text.setText(text);
+            this.text.setText(text);
         }
 
         @Override

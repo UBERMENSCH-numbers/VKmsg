@@ -8,7 +8,7 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.example.user.vkmsg.POJO.POJOLongPollHistory.Response;
+import com.example.user.vkmsg.models.modelLongPollHistory.Response;
 import com.vk.sdk.VKSdk;
 
 public class MyApp extends Application {

@@ -8,7 +8,7 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.api.VKError;
 
 public interface MainActivityContract {
-    interface View extends IView, RecyclerItemClickListener {
+    interface View extends IView {
         void VkSdkLogin ();
         void setFragment(BaseNavigationFragment fragment);
         Boolean hasFragment();

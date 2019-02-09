@@ -10,6 +10,6 @@ public interface ChatFragmentContract {
     }
 
     interface Presenter extends IPresenter<ChatFragmentContract.View> {
-        void attachAdapter (ChatFragmentAdapter adapter);
+
     }
 }

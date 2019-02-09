@@ -2,8 +2,8 @@ package com.example.user.vkmsg.utils;
 
 import android.util.Log;
 
-import com.example.user.vkmsg.POJO.POJOConverdsations.Item;
-import com.example.user.vkmsg.POJO.POJOConverdsations.Profile;
+import com.example.user.vkmsg.models.modelConversations.Item;
+import com.example.user.vkmsg.models.modelConversations.Profile;
 
 import java.util.List;
 

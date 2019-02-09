@@ -1,7 +1,6 @@
 package com.example.user.vkmsg.mvp.contracts;
 
-import com.example.user.vkmsg.POJO.AppBar;
-import com.example.user.vkmsg.interfaces.RecyclerItemClickListener;
+import com.example.user.vkmsg.models.AppBar;
 import com.example.user.vkmsg.interfaces.IPresenter;
 import com.example.user.vkmsg.interfaces.IView;
 

@@ -93,9 +93,6 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
     }
 
     @Override
-    public void onClick(int position, boolean isLongClick, int id) { }
-
-    @Override
     public void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }

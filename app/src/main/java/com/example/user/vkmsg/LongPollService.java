@@ -9,7 +9,7 @@ import android.util.Log;
 import com.example.user.vkmsg.network.Network;
 import com.example.user.vkmsg.network.VKapi;
 import com.example.user.vkmsg.network.VKapiLP;
-import com.example.user.vkmsg.POJO.POJOGetLongPoll.Container__;
+import com.example.user.vkmsg.models.modelGetLongPoll.Container__;
 import com.example.user.vkmsg.parser.NewMessageAdd;
 import com.example.user.vkmsg.parser.VkLongPollUpdates;
 
@@ -39,7 +39,7 @@ public class LongPollService extends Service {
             @Override
             public void onResponse(Call<Container__> call, Response<Container__> response) {
                 if (response.isSuccessful()) {
-                    com.example.user.vkmsg.POJO.POJOGetLongPoll.Response response_ = response.body().getResponse();
+                    com.example.user.vkmsg.models.modelGetLongPoll.Response response_ = response.body().getResponse();
                     ts = response_.getTs().toString();
                     key = response_.getKey();
                     server = response_.getServer();
