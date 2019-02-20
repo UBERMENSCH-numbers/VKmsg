@@ -1,6 +1,8 @@
 package com.example.user.vkmsg;
 
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -82,7 +84,7 @@ public class ChatFragmentAdapter extends RecyclerView.Adapter<ChatFragmentAdapte
 
         @Override
         public void setName(String text) {
-            this.text.setText(text);
+            this.user_name.setText(text);
         }
 
         @Override

@@ -57,6 +57,7 @@ public interface VKapi {
 
     @GET("method/messages.getHistory")
     Observable<Container____> getConversationById (
+            @Query("offset") String offset,
             @Query("count") String msgsCount,
             @Query("rev") String rev,
             @Query("peer_id") String chatId,

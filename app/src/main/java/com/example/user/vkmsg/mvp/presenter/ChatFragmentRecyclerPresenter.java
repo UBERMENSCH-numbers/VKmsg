@@ -18,6 +18,7 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
     private CompositeDisposable observable;
     private ChatFragmentAdapter adapter;
     private int chatId;
+    private Boolean isLoadingFlag = false;
 
     public ChatFragmentRecyclerPresenter (RxBus rxBus, ChatRecyclerAdapterContract.Model model, int chatId) {
         this.bus = rxBus;
@@ -30,12 +31,13 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
     @Override
     public void attachAdapter(ChatFragmentAdapter adapter) {
         this.adapter = adapter;
-        model.loadData(425077437);
+        model.loadData(chatId, 0);
 
         observable.add(bus.toObservable().filter(o -> o instanceof MessageModel)
                 .subscribeWith(new DisposableObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
+                        if (isLoadingFlag) isLoadingFlag = false;
                         data.add((MessageModel) o);
                         adapter.notifyItemInserted(data.size());
                     }
@@ -54,8 +56,10 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
 
     @Override
     public void onBindRepositoryRowViewAtPosition(int position, ChatRecyclerAdapterContract.View rowView) {
+        if (position == data.size() - 1 && !isLoadingFlag) loadMoreMessages(chatId, data.size());
+
         if (getLayoutType(position) == 2) {
-            rowView.setAvatar(model.getPic(data.get(position).getPhoto_100()).blockingFirst());
+            rowView.setAvatar(model.getPic(data.get(position).getPhoto_100()).retry(2).blockingFirst());
             rowView.setName(data.get(position).getUser_name());
         }
         rowView.setFromId(data.get(position).getFrom_id());
@@ -78,4 +82,10 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
         if  (String.valueOf(data.get(position).getFrom_id()).equals(MyApp.id)) return 1;
         return 2;
     }
+
+    void loadMoreMessages (int id,int offset) {
+        model.loadData(id, offset);
+
+    }
+
 }

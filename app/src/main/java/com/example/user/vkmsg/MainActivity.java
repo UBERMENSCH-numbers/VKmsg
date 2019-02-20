@@ -83,6 +83,7 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
         fragment.attachPresenter(presenter);
         getSupportFragmentManager()
                 .beginTransaction()
+                .addToBackStack(null)
                 .replace(R.id.fragment_container,fragment)
                 .commit();
     }

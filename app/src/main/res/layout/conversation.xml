@@ -19,18 +19,24 @@
         android:orientation="horizontal"
         android:layout_gravity="bottom">
 
-        <EditText
-            android:hint="Enter Message"
-            android:textSize="6pt"
-            android:id="@+id/message_to_send"
+        <android.support.design.widget.TextInputLayout
+            android:elevation="4dp"
             android:layout_width="0dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:layout_height="35dp"
-            android:layout_gravity="bottom" />
+            android:textColorHint="@android:color/darker_gray"
+            android:hint="Enter Message"
+            android:background="@android:color/background_light">
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="match_parent" />
+            <EditText
+                android:id="@+id/message_to_send"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColorHighlight="@android:color/darker_gray"
+                android:textSize="8pt" />
+
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 

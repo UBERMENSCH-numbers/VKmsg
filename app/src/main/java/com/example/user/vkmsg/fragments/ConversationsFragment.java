@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,6 +135,6 @@ public class ConversationsFragment extends BaseFragment<ConversationFragmentPres
         Log.e("CREATE FRAGMENT", String.valueOf(chatId));
         bundle.putInt("chatId", chatId);
         chatFragment.setArguments(bundle);
-        navigationPresenter.addFragment(new ChatFragment());
+        navigationPresenter.addFragment(chatFragment);
     }
 }

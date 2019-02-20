@@ -26,18 +26,18 @@ public class ChatRecyclerAdapterModel implements ChatRecyclerAdapterContract.Mod
         this.bus = bus;
     }
 
-    public void loadData (int id) {
-        getData(id)
+    public void loadData (int id, int offset) {
+        getData(id, offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(data -> bus.send(data)).subscribe();
     }
 
-    private Observable<MessageModel> getData(int id) {
+    private Observable<MessageModel> getData(int id, int offset) {
         ArrayList<String> fields = new ArrayList<>();
         fields.add("photo_100");
         return Network.getvKapi()
-                .getConversationById("100",  "0", String.valueOf(id), "1", fields, MyApp.token, "5.92")
+                .getConversationById(String.valueOf(offset),"100",  "0", String.valueOf(id), "1", fields, MyApp.token, "5.92")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)

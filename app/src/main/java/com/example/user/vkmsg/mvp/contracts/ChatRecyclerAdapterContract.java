@@ -22,7 +22,7 @@ public interface ChatRecyclerAdapterContract {
         int getLayoutType(int position);
     }
     interface Model {
-        void loadData(int id);
+        void loadData (int id, int offset);
         Observable<Bitmap> getPic (String url);
     }
 }

@@ -7,6 +7,7 @@ public class MessageModel implements Comparable<MessageModel> {
     int messageId;
     int from_id;
 
+
     public int getFrom_id() {
         return from_id;
     }
