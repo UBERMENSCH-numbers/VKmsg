@@ -29,11 +29,6 @@ import java.util.Objects;
 public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivityContract.View> implements MainActivityContract.View {
     private MainActivityPresenter presenter;
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
     @NonNull
     @Override
     protected String tag() {
@@ -50,7 +45,6 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
     protected void onPresenterCreatedOrRestored(@NonNull MainActivityPresenter presenter) {
         this.presenter = presenter;
         this.presenter.attachView(this);
-        this.presenter.login();
         this.presenter.viewIsReady();
     }
 

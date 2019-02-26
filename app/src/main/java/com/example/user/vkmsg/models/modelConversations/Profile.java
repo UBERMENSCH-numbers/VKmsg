@@ -24,9 +24,6 @@ public class Profile {
     @SerializedName("photo_100")
     @Expose
     private String photo100;
-    @SerializedName("crop_photo")
-    @Expose
-    private CropPhoto cropPhoto;
 
     public Integer getId() {
         return id;
@@ -74,14 +71,6 @@ public class Profile {
 
     public void setPhoto100(String photo100) {
         this.photo100 = photo100;
-    }
-
-    public CropPhoto getCropPhoto() {
-        return cropPhoto;
-    }
-
-    public void setCropPhoto(CropPhoto cropPhoto) {
-        this.cropPhoto = cropPhoto;
     }
 
 }

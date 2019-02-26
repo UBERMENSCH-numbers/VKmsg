@@ -44,6 +44,11 @@ public class ChatFragmentAdapter extends RecyclerView.Adapter<ChatFragmentAdapte
         presenter.onBindRepositoryRowViewAtPosition(i, chatViewHolder);
     }
 
+
+    public void onDetach() {
+        presenter.detach();
+    }
+
     @Override
     public int getItemViewType(int position) {
         return presenter.getLayoutType(position);

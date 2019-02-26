@@ -9,12 +9,12 @@ public class Attachment_ {
     @SerializedName("type")
     @Expose
     private String type;
-    @SerializedName("link")
-    @Expose
-    private Link link;
     @SerializedName("photo")
     @Expose
-    private Photo___ photo;
+    private Photo__ photo;
+    @SerializedName("call")
+    @Expose
+    private Call call;
 
     public String getType() {
         return type;
@@ -24,20 +24,20 @@ public class Attachment_ {
         this.type = type;
     }
 
-    public Link getLink() {
-        return link;
-    }
-
-    public void setLink(Link link) {
-        this.link = link;
-    }
-
-    public Photo___ getPhoto() {
+    public Photo__ getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Photo___ photo) {
+    public void setPhoto(Photo__ photo) {
         this.photo = photo;
+    }
+
+    public Call getCall() {
+        return call;
+    }
+
+    public void setCall(Call call) {
+        this.call = call;
     }
 
 }

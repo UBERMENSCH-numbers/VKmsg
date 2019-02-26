@@ -24,6 +24,7 @@ public interface MainActivityContract {
         String LOGIN_SHARED_PREFERENCES = "login_data";
         void savePreferences (String value, String key);
         String loadPreferences (String key);
+        void onDetach ();
     }
 }
 // TODO: ЗАПИЛИТЬ АВТОУДАЛЯТОР СООБЩЕНИЙ

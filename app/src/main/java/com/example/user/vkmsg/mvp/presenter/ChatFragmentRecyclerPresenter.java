@@ -16,7 +16,6 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
     private ChatRecyclerAdapterContract.Model model;
     private ArrayList<MessageModel> data;
     private CompositeDisposable observable;
-    private ChatFragmentAdapter adapter;
     private int chatId;
     private Boolean isLoadingFlag = false;
 
@@ -30,7 +29,6 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
 
     @Override
     public void attachAdapter(ChatFragmentAdapter adapter) {
-        this.adapter = adapter;
         model.loadData(chatId, 0);
 
         observable.add(bus.toObservable().filter(o -> o instanceof MessageModel)
@@ -75,6 +73,9 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
     @Override
     public void detach() {
         observable.clear();
+        model = null;
+        observable = null;
+        bus = null;
     }
 
     @Override

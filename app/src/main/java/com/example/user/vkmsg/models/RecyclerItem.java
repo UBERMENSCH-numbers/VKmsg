@@ -1,28 +1,19 @@
 package com.example.user.vkmsg.models;
 
-import android.graphics.Bitmap;
-
 public class RecyclerItem {
    private String conversationTitle;
    private String lastMsg;
-   private Bitmap conversationPic;
    private String photoUrl;
    private int chatId;
+   private int unreadCount;
 
-    public RecyclerItem () {
-        conversationPic = null;
-        lastMsg = null;
-        conversationTitle = null;
+
+    public int getUnreadCount() {
+        return unreadCount;
     }
 
-    public RecyclerItem (String conversationTitle, String lastMsg, Bitmap conversationPic) {
-        this.conversationPic = conversationPic;
-        this.lastMsg = lastMsg;
-        this.conversationTitle = conversationTitle;
-    }
-
-    public void setConversationPic(Bitmap conversationPic) {
-        this.conversationPic = conversationPic;
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
     }
 
     public String getPhotoUrl() {
@@ -47,10 +38,6 @@ public class RecyclerItem {
 
     public void setLastMsg(String lastMsg) {
         this.lastMsg = lastMsg;
-    }
-
-    public Bitmap getConversationPic() {
-        return conversationPic;
     }
 
     public int getChatId() {

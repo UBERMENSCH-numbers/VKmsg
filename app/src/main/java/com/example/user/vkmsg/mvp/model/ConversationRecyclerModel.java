@@ -2,6 +2,7 @@ package com.example.user.vkmsg.mvp.model;
 
 import android.graphics.Bitmap;
 
+
 import com.example.user.vkmsg.MyApp;
 import com.example.user.vkmsg.network.Network;
 import com.example.user.vkmsg.models.RecyclerItem;
@@ -27,26 +28,27 @@ public class ConversationRecyclerModel implements ConversationRecyclerAdapterCon
     }
 
     public void loadConversations() {
+            ArrayList<String> fields = new ArrayList<>();
+            fields.add("photo_100");
 
-        ArrayList<String> fields = new ArrayList<>();
-        fields.add("photo_100");
-
-        Network.getvKapi().getConversations(MyApp.token,"1","all", fields,"5.92")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(container_ -> Observable.just(container_.getResponse()))
-                .flatMap(response -> Observable.zip(Observable.fromIterable(response.getItems()),
-                        Observable.fromIterable(response.getProfiles()), (a, b) -> SpecialModelConversation.create(a, response.getProfiles()))
-                        .map(this::parseData))
-                .doOnNext((recyclerItem) -> rxBus.send(recyclerItem))
-//                .doOnComplete(() -> rxBus.onComplete())
-                .subscribe();
+            Network.getvKapi().getConversations(MyApp.token, "1", "all", fields, "5.92")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .flatMap(container_ -> Observable.just(container_.getResponse()))
+                    .flatMap(response -> Observable.zip(Observable.fromIterable(response.getItems()),
+                            Observable.fromIterable(response.getProfiles()), (a, b) -> SpecialModelConversation.create(a, response.getProfiles()))
+                            .map(this::parseData))
+                    .doOnNext((recyclerItem) -> rxBus.send(recyclerItem))
+                    .subscribe();
     }
 
     private RecyclerItem parseData (SpecialModelConversation itemProfilePair) {
         RecyclerItem recyclerItem = new RecyclerItem();
         recyclerItem.setLastMsg(itemProfilePair.item.getLastMessage().getText());
         recyclerItem.setChatId(itemProfilePair.item.getConversation().getPeer().getId());
+        if (itemProfilePair.item.getConversation().getUnreadCount() != null) {
+            recyclerItem.setUnreadCount(itemProfilePair.item.getConversation().getUnreadCount());
+        } else recyclerItem.setUnreadCount(0);
 
         if (itemProfilePair.item.getConversation().getPeer().getType().equals("user")) {
             recyclerItem.setConversationTitle(itemProfilePair.profile.getFirstName() + " " +itemProfilePair.profile.getLastName());

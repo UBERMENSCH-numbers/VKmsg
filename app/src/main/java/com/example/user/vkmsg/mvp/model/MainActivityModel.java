@@ -34,4 +34,10 @@ public class MainActivityModel implements MainActivityContract.Model {
         Log.e("SHARED PREFERENCES LOAD", key + " returns " + value + " value");
         return value;
     }
+
+    @Override
+    public void onDetach() {
+        context = null;
+        sPref = null;
+    }
 }

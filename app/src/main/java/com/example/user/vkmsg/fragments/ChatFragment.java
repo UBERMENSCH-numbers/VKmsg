@@ -31,6 +31,7 @@ import com.example.user.vkmsg.mvp.presenter.ChatFragmentRecyclerPresenter;
 public class ChatFragment extends BaseFragment<ChatFragmentContract.Presenter,
         ChatFragmentContract.View> implements ChatFragmentContract.View {
     private int chatId;
+    private ChatFragmentAdapter adapter;
     private ChatFragmentContract.Presenter presenter;
 
     @Override
@@ -90,6 +91,7 @@ public class ChatFragment extends BaseFragment<ChatFragmentContract.Presenter,
         ChatFragmentAdapter adapter = new ChatFragmentAdapter(presenter);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setReverseLayout(true);
+        this.adapter = adapter;
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(manager);
     }
@@ -97,5 +99,11 @@ public class ChatFragment extends BaseFragment<ChatFragmentContract.Presenter,
     @Override
     public void showToast(String text) {
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.onDetach();
     }
 }

@@ -21,7 +21,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ConversationFragmentModel implements ConversationFragmentContract.Model {
-    private Target target;
     private RxBus bus;
 
     public ConversationFragmentModel (RxBus bus) {
@@ -31,22 +30,22 @@ public class ConversationFragmentModel implements ConversationFragmentContract.M
 
     @Override
     public void downloadAppBar(AppBar appBar) {
-        ArrayList<String> ids = new ArrayList<>();
-        ids.add(MyApp.id);
+            ArrayList<String> ids = new ArrayList<>();
+            ids.add(MyApp.id);
 
-        Network.getvKapi().getUser(ids, MyApp.token, "photo_max_orig", "5.92").enqueue(new Callback<Container>() {
-            @Override
-            public void onResponse(Call<Container> call, Response<Container> response) {
-                com.example.user.vkmsg.models.modelUsers.Response response_ = response.body().getResponse().get(0);
-                appBar.setUserName(response_.getFirstName() + " " + response_.getLastName());
-                loadPic(response_.getPhotoMaxOrig(), appBar);
-            }
+            Network.getvKapi().getUser(ids, MyApp.token, "photo_max_orig", "5.92").enqueue(new Callback<Container>() {
+                @Override
+                public void onResponse(Call<Container> call, Response<Container> response) {
+                    com.example.user.vkmsg.models.modelUsers.Response response_ = response.body().getResponse().get(0);
+                    appBar.setUserName(response_.getFirstName() + " " + response_.getLastName());
+                    loadPic(response_.getPhotoMaxOrig(), appBar);
+                }
 
-            @Override
-            public void onFailure(Call<Container> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Container> call, Throwable t) {
 
-            }
-        });
+                }
+            });
     }
 
     void loadPic(String url, AppBar appBar) {

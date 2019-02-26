@@ -1,6 +1,11 @@
 package com.example.user.vkmsg.mvp.presenter;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.util.Log;
+
+import com.example.user.vkmsg.utils.ChatIdMatchesKt;
+import com.example.user.vkmsg.utils.ChatIdMatchesKt.*;
 
 import com.example.user.vkmsg.ConversationRecyclerAdapter;
 import com.example.user.vkmsg.models.RecyclerItem;
@@ -9,6 +14,7 @@ import com.example.user.vkmsg.mvp.contracts.ConversationRecyclerAdapterContract;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -26,6 +32,7 @@ public class ConversationRecyclerPresenter implements ConversationRecyclerAdapte
     public ConversationRecyclerPresenter(ConversationRecyclerAdapterContract.Model model, RxBus bus) {
         this.model = model;
         this.rxBus = bus;
+        registerBus();
         data = new ArrayList<>();
 
     }
@@ -75,8 +82,15 @@ public class ConversationRecyclerPresenter implements ConversationRecyclerAdapte
 
                     @Override
                     public void onNext(Object o) {
-                        data.add((RecyclerItem) o);
-                        adapter.notifyItemInserted(data.size());
+                        RecyclerItem item = (RecyclerItem) o;
+                        Log.e("LOG", String.valueOf(ChatIdMatchesKt.find(data ,item)));
+                        if (ChatIdMatchesKt.find(data ,item) != -1) {
+                            data.set(ChatIdMatchesKt.find(data ,item), item);
+                            adapter.notifyItemChanged(ChatIdMatchesKt.find(data ,item));
+                        } else {
+                            data.add((RecyclerItem) o);
+                            adapter.notifyItemInserted(data.size());
+                        }
                     }
 
                     @Override

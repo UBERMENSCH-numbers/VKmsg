@@ -18,15 +18,18 @@ public class Conversation {
     @SerializedName("last_message_id")
     @Expose
     private Integer lastMessageId;
+    @SerializedName("unread_count")
+    @Expose
+    private Integer unreadCount;
     @SerializedName("can_write")
     @Expose
     private CanWrite canWrite;
-    @SerializedName("chat_settings")
-    @Expose
-    private ChatSettings chatSettings;
     @SerializedName("push_settings")
     @Expose
     private PushSettings pushSettings;
+    @SerializedName("chat_settings")
+    @Expose
+    private ChatSettings chatSettings;
 
     public Peer getPeer() {
         return peer;
@@ -60,6 +63,14 @@ public class Conversation {
         this.lastMessageId = lastMessageId;
     }
 
+    public Integer getUnreadCount() {
+        return unreadCount;
+    }
+
+    public void setUnreadCount(Integer unreadCount) {
+        this.unreadCount = unreadCount;
+    }
+
     public CanWrite getCanWrite() {
         return canWrite;
     }
@@ -68,20 +79,20 @@ public class Conversation {
         this.canWrite = canWrite;
     }
 
-    public ChatSettings getChatSettings() {
-        return chatSettings;
-    }
-
-    public void setChatSettings(ChatSettings chatSettings) {
-        this.chatSettings = chatSettings;
-    }
-
     public PushSettings getPushSettings() {
         return pushSettings;
     }
 
     public void setPushSettings(PushSettings pushSettings) {
         this.pushSettings = pushSettings;
+    }
+
+    public ChatSettings getChatSettings() {
+        return chatSettings;
+    }
+
+    public void setChatSettings(ChatSettings chatSettings) {
+        this.chatSettings = chatSettings;
     }
 
 }

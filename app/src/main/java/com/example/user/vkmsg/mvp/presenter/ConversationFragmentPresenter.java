@@ -15,15 +15,15 @@ public class ConversationFragmentPresenter implements ConversationFragmentContra
     private RxBus bus;
     private CompositeDisposable observable;
 
-    public ConversationFragmentPresenter(RxBus bus) {
+    public ConversationFragmentPresenter(RxBus bus, ConversationFragmentModel model) {
         this.bus = bus;
+        this.model = model;
         observable = new CompositeDisposable();
     }
 
     @Override
     public void attachView(ConversationFragmentContract.View mvpView) {
         view = mvpView;
-        model = new ConversationFragmentModel(bus);
     }
 
     @Override
@@ -40,12 +40,12 @@ public class ConversationFragmentPresenter implements ConversationFragmentContra
 
     @Override
     public void detachView() {
-        view = null;
-        model = null;
         observable.clear();
     }
 
     @Override
     public void destroy() {
+        model = null;
+        view = null;
     }
 }

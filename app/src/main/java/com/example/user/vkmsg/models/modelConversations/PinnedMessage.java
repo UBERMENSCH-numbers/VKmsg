@@ -25,12 +25,12 @@ public class PinnedMessage {
     @SerializedName("conversation_message_id")
     @Expose
     private Integer conversationMessageId;
-    @SerializedName("fwd_messages")
-    @Expose
-    private List<Object> fwdMessages = null;
     @SerializedName("attachments")
     @Expose
     private List<Attachment> attachments = null;
+    @SerializedName("fwd_messages")
+    @Expose
+    private List<Object> fwdMessages = null;
 
     public Integer getId() {
         return id;
@@ -80,20 +80,20 @@ public class PinnedMessage {
         this.conversationMessageId = conversationMessageId;
     }
 
-    public List<Object> getFwdMessages() {
-        return fwdMessages;
-    }
-
-    public void setFwdMessages(List<Object> fwdMessages) {
-        this.fwdMessages = fwdMessages;
-    }
-
     public List<Attachment> getAttachments() {
         return attachments;
     }
 
     public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+    }
+
+    public List<Object> getFwdMessages() {
+        return fwdMessages;
+    }
+
+    public void setFwdMessages(List<Object> fwdMessages) {
+        this.fwdMessages = fwdMessages;
     }
 
 }

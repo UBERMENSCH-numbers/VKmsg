@@ -25,6 +25,9 @@ public class Photo__ {
     @SerializedName("date")
     @Expose
     private Integer date;
+    @SerializedName("access_key")
+    @Expose
+    private String accessKey;
 
     public Integer getId() {
         return id;
@@ -72,6 +75,14 @@ public class Photo__ {
 
     public void setDate(Integer date) {
         this.date = date;
+    }
+
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
     }
 
 }

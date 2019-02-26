@@ -30,7 +30,7 @@ public class LastMessage {
     private Integer conversationMessageId;
     @SerializedName("fwd_messages")
     @Expose
-    private List<Object> fwdMessages = null;
+    private List<FwdMessage> fwdMessages = null;
     @SerializedName("important")
     @Expose
     private Boolean important;
@@ -100,11 +100,11 @@ public class LastMessage {
         this.conversationMessageId = conversationMessageId;
     }
 
-    public List<Object> getFwdMessages() {
+    public List<FwdMessage> getFwdMessages() {
         return fwdMessages;
     }
 
-    public void setFwdMessages(List<Object> fwdMessages) {
+    public void setFwdMessages(List<FwdMessage> fwdMessages) {
         this.fwdMessages = fwdMessages;
     }
 

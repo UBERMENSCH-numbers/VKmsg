@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.vkmsg.ConversationRecyclerAdapter;
+import com.example.user.vkmsg.DataBase;
 import com.example.user.vkmsg.MyApp;
 import com.example.user.vkmsg.models.AppBar;
 import com.example.user.vkmsg.R;
@@ -50,8 +50,7 @@ public class ConversationsFragment extends BaseFragment<ConversationFragmentPres
     @NonNull
     @Override
     protected IPresenterFactory<ConversationFragmentPresenter> getPresenterFactory() {
-        return new ConversationFragmentPresenterFactory<>(((MyApp) getActivity()
-                .getApplication()).bus());
+        return new ConversationFragmentPresenterFactory<>(((MyApp) getActivity().getApplication()).bus());
 
     }
 
@@ -90,7 +89,7 @@ public class ConversationsFragment extends BaseFragment<ConversationFragmentPres
         RecyclerView recyclerView = getView().findViewById(R.id.recycler_view_dialogs);
         RxBus rxBus = ((MyApp) getActivity().getApplication()).bus();
         ConversationRecyclerPresenter presenter = new ConversationRecyclerPresenter
-                (new ConversationRecyclerModel(rxBus), rxBus);
+                ((new ConversationRecyclerModel(rxBus)), rxBus);
 
         conversationRecyclerAdapter = new ConversationRecyclerAdapter(presenter);
         conversationRecyclerAdapter.setRecyclerItemClickListener(this);

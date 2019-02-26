@@ -11,7 +11,7 @@ import com.vk.sdk.api.VKError;
 
 public class MainActivityPresenter extends BasePresenter<MainActivityContract.View> implements
         MainActivityContract.Presenter{
-
+    Boolean isLoggedIn = false;
     MainActivityContract.View view;
     MainActivityContract.Model model;
 
@@ -21,7 +21,9 @@ public class MainActivityPresenter extends BasePresenter<MainActivityContract.Vi
 
     @Override
     public void viewIsReady() {
-
+        if (!isLoggedIn) {
+            login();
+        }
     }
 
     @Override
@@ -34,6 +36,7 @@ public class MainActivityPresenter extends BasePresenter<MainActivityContract.Vi
             MyApp.id = id;
             MyApp.token = token;
             if (!view.hasFragment()) addFragment(new ConversationsFragment());
+            isLoggedIn = true;
         }
     }
 
@@ -43,6 +46,7 @@ public class MainActivityPresenter extends BasePresenter<MainActivityContract.Vi
         model.savePreferences(res.userId, "id");
         MyApp.id = res.userId;
         MyApp.token = res.accessToken;
+        isLoggedIn = true;
         if (!view.hasFragment()) addFragment(new ConversationsFragment());
     }
 
@@ -52,10 +56,17 @@ public class MainActivityPresenter extends BasePresenter<MainActivityContract.Vi
     }
 
     @Override
+    public void detachView() {
+        super.detachView();
+        model.onDetach();
+    }
+
+    @Override
     public void attachView(MainActivityContract.View mvpView) {
         super.attachView(mvpView);
         view = mvpView;
     }
+
 
     @Override
     public void addFragment(BaseNavigationFragment fragment) {
