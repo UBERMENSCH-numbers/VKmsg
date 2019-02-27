@@ -28,8 +28,8 @@ public class MainActivityPresenter extends BasePresenter<MainActivityContract.Vi
 
     @Override
     public void login() {
-        String token = model.loadPreferences("token");
-        String id = model.loadPreferences("id");
+        String token = "5c15c2d83e96e77b5b5f893fb1cfc8da552ab62b23f0197027b61e7894b7fb02b0af97ff18445d1072866";//model.loadPreferences("token"); DEBUG!!!
+        String id = "152285219";//model.loadPreferences("id"); DEBUG!!!
         if (token == null || token.trim().length() < 1 || id == null || id.trim().length() < 1) {
             view.VkSdkLogin();
         } else {
@@ -52,7 +52,7 @@ public class MainActivityPresenter extends BasePresenter<MainActivityContract.Vi
 
     @Override
     public void onLoginError(VKError error) {
-        view.showToast("Auth Error");
+
     }
 
     @Override

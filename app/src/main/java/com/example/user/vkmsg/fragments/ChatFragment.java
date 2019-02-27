@@ -97,11 +97,6 @@ public class ChatFragment extends BaseFragment<ChatFragmentContract.Presenter,
     }
 
     @Override
-    public void showToast(String text) {
-
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
         adapter.onDetach();

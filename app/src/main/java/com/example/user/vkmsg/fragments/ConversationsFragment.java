@@ -56,12 +56,9 @@ public class ConversationsFragment extends BaseFragment<ConversationFragmentPres
 
     @Override
     protected void onPresenterCreatedOrRestored(@NonNull ConversationFragmentPresenter presenter) {
-        if (this.presenter == null) {
-            this.presenter = presenter;
-            presenter.attachView(getPresenterView());
-            presenter.viewIsReady();
-        }
-
+         this.presenter = presenter;
+         presenter.attachView(getPresenterView());
+         presenter.viewIsReady();
     }
 
     @Override
@@ -99,18 +96,14 @@ public class ConversationsFragment extends BaseFragment<ConversationFragmentPres
     }
 
     @Override
-    public void showToast(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        conversationRecyclerAdapter.detach();
+    public void onStop() {
+        super.onStop();
         presenter.detachView();
+        conversationRecyclerAdapter.destroy();
         presenter = null;
         conversationRecyclerAdapter = null;
     }
+
 
     @Override
     public void setAppBar(AppBar appBar) {
@@ -128,7 +121,6 @@ public class ConversationsFragment extends BaseFragment<ConversationFragmentPres
 
     @Override
     public void onClick(int position, boolean isLongClick, int chatId) {
-        showToast(String.valueOf(position));
         ChatFragment chatFragment = new ChatFragment();
         Bundle bundle = new Bundle();
         Log.e("CREATE FRAGMENT", String.valueOf(chatId));

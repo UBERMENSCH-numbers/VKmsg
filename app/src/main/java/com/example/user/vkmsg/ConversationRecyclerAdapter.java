@@ -47,9 +47,17 @@ public class ConversationRecyclerAdapter extends RecyclerView.Adapter<Conversati
         this.recyclerItemClickListener = recyclerItemClickListener;
     }
 
+    public void destroy () {
+        presenter.destroy();
+        presenter = null;
+    }
+
     public void detach () {
         presenter.detach();
-        presenter = null;
+    }
+
+    public void attach () {
+        presenter.attachAdapter(this);
     }
 
     public class ConversationViewHolder extends RecyclerView.ViewHolder implements ConversationRecyclerAdapterContract.View {

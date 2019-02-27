@@ -57,13 +57,19 @@ public class ConversationRecyclerPresenter implements ConversationRecyclerAdapte
     }
 
     @Override
+    public void destroy() {
+        rxBus = null;
+        model = null;
+        data = null;
+        adapter = null;
+        disposables.clear();
+    }
+
+    @Override
     public void detach() {
         Log.e("LOG", "detach");
         rxBus.unsubscribe();
         disposables.clear();
-        adapter = null;
-        data = null;
-        model = null;
     }
 
     public int getRepositoriesRowsCount() {
@@ -83,7 +89,6 @@ public class ConversationRecyclerPresenter implements ConversationRecyclerAdapte
                     @Override
                     public void onNext(Object o) {
                         RecyclerItem item = (RecyclerItem) o;
-                        Log.e("LOG", String.valueOf(ChatIdMatchesKt.find(data ,item)));
                         if (ChatIdMatchesKt.find(data ,item) != -1) {
                             data.set(ChatIdMatchesKt.find(data ,item), item);
                             adapter.notifyItemChanged(ChatIdMatchesKt.find(data ,item));
@@ -98,5 +103,7 @@ public class ConversationRecyclerPresenter implements ConversationRecyclerAdapte
                     }
                 }));
     }
+
+
 
 }

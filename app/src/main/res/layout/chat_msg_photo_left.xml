@@ -46,8 +46,9 @@
 
         <ImageView
             android:id="@+id/msgPic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:src="@mipmap/ic_launcher"/>
 

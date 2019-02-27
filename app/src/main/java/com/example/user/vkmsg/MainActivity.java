@@ -88,11 +88,6 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
     }
 
     @Override
-    public void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void VkSdkLogin() {
         VKSdk.login(this, VKScope.FRIENDS,VKScope.MESSAGES);
     }

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.example.user.vkmsg.MyApp;
 import com.example.user.vkmsg.models.MessageModel;
 import com.example.user.vkmsg.RxBus;
+import com.example.user.vkmsg.models.MessageWithPhotoModel;
 import com.example.user.vkmsg.models.modelGetConversation.Item;
 import com.example.user.vkmsg.mvp.contracts.ChatRecyclerAdapterContract;
 import com.example.user.vkmsg.network.Network;
@@ -13,7 +14,6 @@ import com.example.user.vkmsg.utils.SpecialModelMessages;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -55,7 +55,7 @@ public class ChatRecyclerAdapterModel implements ChatRecyclerAdapterContract.Mod
         MessageModel model = new MessageModel();
         model.setMessageId(modelMessages.item.getId());
         model.setUser_name(modelMessages.profile.getFirstName() + " " + modelMessages.profile.getLastName());
-        model.setPhoto_100(modelMessages.profile.getPhoto100());
+        model.setAvatar_photo(modelMessages.profile.getPhoto100());
         model.setText(modelMessages.item.getText());
         model.setFrom_id(modelMessages.item.getFromId());
         return model;

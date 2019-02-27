@@ -30,7 +30,6 @@ public class ConversationRecyclerModel implements ConversationRecyclerAdapterCon
     public void loadConversations() {
             ArrayList<String> fields = new ArrayList<>();
             fields.add("photo_100");
-
             Network.getvKapi().getConversations(MyApp.token, "1", "all", fields, "5.92")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

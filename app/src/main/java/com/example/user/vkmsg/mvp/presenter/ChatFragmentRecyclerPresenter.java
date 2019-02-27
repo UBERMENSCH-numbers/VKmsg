@@ -57,7 +57,7 @@ public class ChatFragmentRecyclerPresenter implements ChatRecyclerAdapterContrac
         if (position == data.size() - 1 && !isLoadingFlag) loadMoreMessages(chatId, data.size());
 
         if (getLayoutType(position) == 2) {
-            rowView.setAvatar(model.getPic(data.get(position).getPhoto_100()).retry(2).blockingFirst());
+            rowView.setAvatar(model.getPic(data.get(position).getAvatar_photo()).retry(2).blockingFirst());
             rowView.setName(data.get(position).getUser_name());
         }
         rowView.setFromId(data.get(position).getFrom_id());

@@ -21,6 +21,7 @@ public interface ConversationRecyclerAdapterContract {
         int getRepositoriesRowsCount();
         void detach ();
         void attachAdapter(ConversationRecyclerAdapter adapter);
+        void destroy();
     }
 
     interface Model {

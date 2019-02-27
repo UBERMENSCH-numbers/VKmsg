@@ -1,9 +1,9 @@
 package com.example.user.vkmsg.models;
 
-public class MessageModel implements Comparable<MessageModel> {
+public class MessageModel {
     String text;
     String user_name;
-    String photo_100;
+    String avatar_photo;
     int messageId;
     int from_id;
 
@@ -43,17 +43,11 @@ public class MessageModel implements Comparable<MessageModel> {
         this.text = text;
     }
 
-    public String getPhoto_100() {
-        return photo_100;
+    public String getAvatar_photo() {
+        return avatar_photo;
     }
 
-    public void setPhoto_100(String photo_100) {
-        this.photo_100 = photo_100;
-    }
-
-
-    @Override
-    public int compareTo(MessageModel o) {
-        return o.getMessageId();
+    public void setAvatar_photo(String avatar_photo) {
+        this.avatar_photo = avatar_photo;
     }
 }
